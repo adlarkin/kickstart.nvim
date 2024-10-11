@@ -607,7 +607,17 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         -- gopls = {},
-        -- pyright = {},
+        --[[
+          NOTES:
+            - Mason uses npm to manage LSP server installs, so make sure that's downloaded first: https://nodejs.org/en/download/package-manager
+              * This might need to be done in the Apple terminal, not iTerm:
+                https://github.com/nvm-sh/nvm/issues/1615
+            - For pybind-generated python packages (like Mujoco), if types are missing/not being recognized correctly, stubs may need to be generated:
+              https://github.com/google-deepmind/mujoco/issues/1292
+              * In a venv, check lib/python<version>/site-packages/<package>
+              * If things like .pyi files are missing, generate them and then move them into this directory
+        --]]
+        pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
