@@ -98,6 +98,22 @@ vim.g.have_nerd_font = false
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 
+-- Two space indents (no tabs)
+vim.opt.expandtab = true  -- Use spaces instead of tabs
+vim.opt.tabstop = 2       -- Number of spaces a tab counts for
+vim.opt.shiftwidth = 2    -- Number of spaces used for indentation
+vim.opt.softtabstop = 2   -- Number of spaces inserted when you press Tab
+
+-- Remove trailing whitespace on save
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",                            -- Match all file types
+  callback = function()
+    local save_cursor = vim.fn.getpos(".")  -- Save the current cursor position
+    vim.cmd([[%s/\s\+$//e]])                -- Remove trailing whitespace
+    vim.fn.setpos(".", save_cursor)         -- Restore the cursor position
+  end,
+})
+
 -- Make line numbers default
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
